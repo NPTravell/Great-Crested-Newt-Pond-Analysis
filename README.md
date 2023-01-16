@@ -17,7 +17,7 @@ May, and Wednesdays, are when most GCNs are reported - however this is not indic
 ![Untitled design (6)](https://user-images.githubusercontent.com/122735369/212550950-9ac21a6f-07b3-4488-b541-c55c8d491bda.jpg)
 <p align="center"><sup>Table showing spatial summary statistics, as well as occupancy proportion. Temporal data is across all sites (no records removed), and spatial data is across all years except when year ('1905') or empty dates were filtered out</sup></p>
 
-Due to the large number of records denoting the town nearest to a survyed pond and counties in which ponds were found, spatial visualisations were filtered to the top 10 records. Note that county data was extracted seperately via the coordinates of the pond, as Natural England/DEFRA county was on an ambiguous granularity (for example - )
+Due to the large number of records denoting the town nearest to a survyed pond and counties in which ponds were found, spatial visualisations were filtered to the top 10 records. Note that county data was extracted seperately via the coordinates of the pond, as Natural England/DEFRA county was on an ambiguous granularity (for example - "Gloucestershire, Wiltshire and Bristol/Bath area")
 
 ![Untitled design (5)](https://user-images.githubusercontent.com/122735369/212550996-275f2d32-39c7-476c-ac56-f4d47f796300.jpg)
 
