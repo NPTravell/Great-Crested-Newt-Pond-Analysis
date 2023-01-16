@@ -8,15 +8,17 @@ The script is intended to used via the scheduled task manager on a windows remot
 
 ## When and when are Great Crested Newts found?
 
+Great Crested Newt counts are summed across all years and presented below. Many sightings either did not have dates, or had poor quality (for example, many sightings are in 1905, and it is unclear if that is approriate) so these records will not be counted in the temporal visualisations
+
 ![Untitled design](https://user-images.githubusercontent.com/122735369/212549286-e11f6132-33ad-42ec-b2bb-a074f38acf66.jpg)
 
-_placeholder caption here? or just scrap and include below_
-
-![Untitled design (5)](https://user-images.githubusercontent.com/122735369/212550996-275f2d32-39c7-476c-ac56-f4d47f796300.jpg)
-
-_placeholder caption for the above_
+May, and Wednesdays, are when most GCNs are reported - however this is not indicative of the actual GCN patterns. For instance it may be that GCNS _are_ present more during this time, or it may be that the volunteers gathering the data are more active at this time. 2019 has the highest count of records, though the 2020 data is incomplete (and currently has 0 GCN sightings)
 
 ![Untitled design (6)](https://user-images.githubusercontent.com/122735369/212550950-9ac21a6f-07b3-4488-b541-c55c8d491bda.jpg)
+
+_placeholder caption table explaining. Due to the large number of records denoting the town nearest to a survyed pond and counties in which ponds were found, spatial visualisations were filtered to the top 10 records. Note that county data was extracted via the coordinates of the pond, as Natural England/DEFRA county was on an ambiguous granularity (for example - ) _
+
+![Untitled design (5)](https://user-images.githubusercontent.com/122735369/212550996-275f2d32-39c7-476c-ac56-f4d47f796300.jpg)
 
 _placeholder caption_
 
