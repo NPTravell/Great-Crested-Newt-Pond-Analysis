@@ -21,13 +21,14 @@ Due to the large number of records denoting the town nearest to a survyed pond a
 
 ![Untitled design (5)](https://user-images.githubusercontent.com/122735369/212550996-275f2d32-39c7-476c-ac56-f4d47f796300.jpg)
 
-_placeholder caption_
+The following is a chloropleth map showing which counties have the highest counts of Great Crest Newts (across all years), along showing the locations all pond sites and whether they were found to occupy the site or not
 
-![GCN_survey_chloropleth](https://user-images.githubusercontent.com/122735369/212551448-95e13a36-acdc-499c-a5af-5f8f8581b342.png)
+![Untitled design (1)](https://user-images.githubusercontent.com/122735369/212669721-84fe39f2-2ce8-448b-8196-917dca53f4ff.png)
+<p align="center"><sup>An interactive map (right) is being developed and will be available soon</sup></p>
 
 _placeholder - something about total counts across all years for counties and pond locations [whether GCN were found or not]. some key bullet points about the method, and key takeaways - good/bad locations_
 
-_add html interactive map? I spent ages on that... make the above smaller_
+
 
 ## Why are they found there?
 
