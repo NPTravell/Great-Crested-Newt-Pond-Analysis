@@ -1,11 +1,9 @@
 # Great-Crested-Newt-UK-Pond-Analysis
 
-This project intends to close the knowledge gap between ambiguous newt population sizes and ideal environmental conditions at a district level via the use of 'surveyed priority pond' data by Natural England/Defra and analysing Great Crested Newt (GCN) location patterns via the use of machine learning models
+The Great Crested Newt (GCN) is a European protected species and contributed many ecosystem services and to the health of our environment. The UK's district lincensing scheme handles newt protected and relocation services on behalf of developers, and previously the relocated GCN populations could end up in well intended but inappropriate "designed ponds"  and inevitably fail due to isolation or poor environmental conditons ([read here](https://freshwaterhabitats.org.uk/projects/newt-conservation/#:~:text=The%20new%20approach%20focuses%20on,newts%20can%20breed%20and%20thrive) or [watch here]https://www.youtube.com/watch?v=efJ0YYD1MbM)). This project intends to close the knowledge gap between ambiguous newt population sizes and ideal environmental conditions at a district level via the use of ["surveyed priority pond"](https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::surveyed-priority-ponds-england/about) data by Natural England/Defra and analysing Great Crested Newt (GCN) location patterns via the use of machine learning models
 
 The script is intended to used via the scheduled task manager on a windows remote desktop and the output to function as an automated report (many of the visualisations below are dynamically filtered to top groups in case future datasets have numerous groups, for example). The script can be expanded to export datasets to a SQL data warehouse (coming soon) or ported directly to an Altair python dashboard
 
-read more [here](https://freshwaterhabitats.org.uk/projects/newt-conservation/#:~:text=The%20new%20approach%20focuses%20on,newts%20can%20breed%20and%20thrive)
-video [here](https://www.youtube.com/watch?v=efJ0YYD1MbM)
 # When and when are Great Crested Newts found?
 
 ![Untitled design](https://user-images.githubusercontent.com/122735369/212549286-e11f6132-33ad-42ec-b2bb-a074f38acf66.jpg)
