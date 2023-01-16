@@ -1,7 +1,10 @@
 # Great-Crested-Newt-UK-Pond-Analysis
-Surveyed pond data by Natural England/Defra is analysed for location patterns via the use of machine learning models
 
-_placeholder something like - a brief detailing the descriptive analysis (what happened) Diagnostic analysis (why it happened) Pdictive analysis (what will happen) rescriptive analysis (what steps to take). the script is inteded to used via the scheduled task manager on a windows remote desktop and function as an automated report. it can be expanded with SQL datawarehousing (script to be added soon) or ported directly to an Altair python dashboard _
+_a brief detailing the why/how_ Surveyed pond data by Natural England/Defra is analysed for location Great Crested Newt (GCN) patterns via the use of machine learning models
+
+The script is intended to used via the scheduled task manager on a windows remote desktop and the output to function as an automated report (many of the visualisations below are dynamically filtered to top groups in case future datasets have numerous groups, for example). The script can be expanded to export datasets to a SQL data warehouse (coming soon) or ported directly to an Altair python dashboard
+
+# When and when are Great Crested Newts found?
 
 ![Untitled design](https://user-images.githubusercontent.com/122735369/212549286-e11f6132-33ad-42ec-b2bb-a074f38acf66.jpg)
 
@@ -17,7 +20,11 @@ _placeholder caption_
 
 ![GCN_survey_chloropleth](https://user-images.githubusercontent.com/122735369/212551448-95e13a36-acdc-499c-a5af-5f8f8581b342.png)
 
-_add html interactive map? I spent ages on that..._
+_placeholder - something about total counts across all years for counties and pond locations [whether GCN were found or not]. some key bullet points about the method, and key takeaways - good/bad locations_
+
+_add html interactive map? I spent ages on that... make the above smaller_
+
+# Why are they found there?
 
 _explain method something like 'geographical covariates were extracted in a 2500m buffer around pond locations. how many and what covs were included. where they came from_
 
@@ -25,15 +32,13 @@ _explain method something like 'geographical covariates were extracted in a 2500
 
 _placeholder caption example visualised tif datasets_
 
-_placeholder - something about total counts across all years for counties and pond locations [whether GCN were found or not]. some key bullet points about the method, and key takeaways - good/bad locations_
-
-
-
-
+# Where will they be found in future?
 
 _placeholder - METHODS for training best model, then fine tuning that model for the highest accuracy. explain best model, explain FIV, explain predicted vs actual performance. 
 
 _add in image of model performances. MAYBE screenshot the iterative combination of variables as well as model testing. FIV. pred vs act_
+
+# What steps should we take?
 
 _placeholder RESULTS_
 
