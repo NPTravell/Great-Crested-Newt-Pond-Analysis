@@ -34,12 +34,17 @@ The below table shows total GCN observations counts in each county, and is ranke
 
 _To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations. Where covariate data was not present in the buffer zone, a county wide average was used, and where a county average was not available, a county wide average was used instead. Overall, 7 geographical covariates were extracted - human footprint (consisting of cumulative human pressure consisting of 8 variables such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface).
 
+![Untitled design (7)](https://user-images.githubusercontent.com/122735369/212551258-9d945a85-0aea-47fe-a32b-8f498c68ca96.jpg)
 
-## Where will they be found in future?
+<p align="center"><sup>Example visualised geographical tif datasets</sup></p>
 
 _placeholder - METHODS for training best model, then fine tuning that model for the highest accuracy. explain best model, explain FIV, explain predicted vs actual performance. 
 
+Combinations of these variables (for example, elevation alone, or elevation with precipitation), along with a range of machine learning model architecture (such as random forest, XGboost, and logistic regression) were iteratively tested to determine which variables and model would be most accurate. The most accurate model (XGboost - ~71% accurate using elevation, global horizontal irradiance, human footprint, hillshade, precipitation, windspeed 10m) was then trained with various iterations, learning rates, and sampling rates to fine tune increased prediction accuracy (~76% accurate)
+
 _add in image of model performances. MAYBE screenshot the iterative combination of variables as well as model testing. FIV. pred vs act_
+
+## Where will they be found in future?
 
 ## What steps should we take?
 
