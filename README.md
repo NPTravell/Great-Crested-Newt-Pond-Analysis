@@ -40,9 +40,13 @@ _To understand drivers of GCN presence, geographical covariates were extracted f
 
 _placeholder - METHODS for training best model, then fine tuning that model for the highest accuracy. explain best model, explain FIV, explain predicted vs actual performance. 
 
-Combinations of these variables (for example, elevation alone, or elevation with precipitation), along with a range of machine learning model architecture (such as random forest, XGboost, and logistic regression) were iteratively tested to determine which variables and model would be most accurate. The most accurate model (XGboost - ~71% accurate using elevation, global horizontal irradiance, human footprint, hillshade, precipitation, windspeed 10m) was then trained with various iterations, learning rates, and sampling rates to fine tune increased prediction accuracy (~76% accurate)
+Combinations of these variables (for example, elevation alone, or elevation with precipitation), along with a range of machine learning model architecture (such as random forest, XGboost, and logistic regression) were iteratively tested to determine which variables and model would be most accurate. Each combination was run 5 times and various performances were visualised to assist with model selection. The most accurate model (XGboost - ~71% accurate using elevation, global horizontal irradiance, human footprint, hillshade, precipitation, windspeed 10m) was then trained with various iterations, learning rates, and sampling rates to fine tune increased prediction accuracy (~76% accurate)
 
-_add in image of model performances. MAYBE screenshot the iterative combination of variables as well as model testing. FIV. pred vs act_
+![Untitled design (2)](https://user-images.githubusercontent.com/122735369/212969463-2fb9d16e-3df3-42b9-85e2-f220e76166e0.png)
+
+<p align="center"><sup>Top left: model 732 performance predicting GCN presence based on geographical data vs actual GCN presence. Top right: feature importance scores for model 732. Bottom: various performance metrics from the 5 models with the highest accuracy</sup></p>
+
+The most important variables were indices of human development, and the amount of sunlight and rain, whereas the least important variables in this model were hillshade, windspeed and elevation. Future analyses could split apart the human footprint indices to determine the most important factor contained (for example pollution, or navigable waterways), whereas the climatic variables could be dropped seeing as England is has a temperate climate with few extremes in spatial variations.
 
 ## Where will they be found in future?
 
