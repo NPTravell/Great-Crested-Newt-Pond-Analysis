@@ -50,8 +50,18 @@ The most important variables were indices of human development, and the amount o
 
 ## Where will they be found in future?
 
+_summary: Model 732, predict site occupancy by sites across all years (reword), summed by county then compared to actual counts_
+Only the positive differences where _more_ GCNs were predicted are highlighting in the right hand visual. Future analyses could include geographical data by year (as human footprint will change as new infrastructure is built, and certain years may have more sunlight) to produce a more relevant model
+
+![Untitled design (3)](https://user-images.githubusercontent.com/122735369/212971941-19e94848-fed2-44cd-b610-88f862843398.png)
+
 ## What steps should we take?
 
-_placeholder RESULTS_
+Conservation steps:
+Prioritise ponds in areas with low HFP, higher precipitation and less GHI.
 
-_image of differences and increases - explain the results_
+Analytical steps:
+data collection quality
+different geographical covariates
+seperate covariates for each year
+
