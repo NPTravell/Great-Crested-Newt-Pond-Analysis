@@ -26,17 +26,14 @@ The following is a chloropleth map showing which counties have the highest count
 ![Untitled design (1)](https://user-images.githubusercontent.com/122735369/212669721-84fe39f2-2ce8-448b-8196-917dca53f4ff.png)
 <p align="center"><sup>An interactive map (right) is being developed and will be available soon</sup></p>
 
-_placeholder - something about total counts across all years for counties and pond locations [whether GCN were found or not]. some key bullet points about the method, and key takeaways - good/bad locations_
+The below table shows total GCN observations counts in each county, and is ranked by the average of all three years displayed (2017,2018, and 2019). No observer variables are available in this dataset, which can bias the dataset and subsequent predictive analytics - for example when a pond is recorded as having no GCNs, it may be that the GCN just wasn't observed, not that it wasn't present, and it is possible that certain observers are more skilled than others. The drastic population size changes seen below may be indicative of this, and highlight a need to standardise data collection methods.
 
-
+![year_on_year_change](https://user-images.githubusercontent.com/122735369/212964226-8cefec1e-a4d0-4932-8b2e-d636e6a11e67.png)
 
 ## Why are they found there?
 
-_explain method something like 'geographical covariates were extracted in a 2500m buffer around pond locations. how many and what covs were included. where they came from_
+_To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations. Where covariate data was not present in the buffer zone, a county wide average was used, and where a county average was not available, a county wide average was used instead. Overall, 7 geographical covariates were extracted - human footprint (consisting of cumulative human pressure consisting of 8 variables such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface).
 
-![Untitled design (7)](https://user-images.githubusercontent.com/122735369/212551258-9d945a85-0aea-47fe-a32b-8f498c68ca96.jpg)
-
-_placeholder caption example visualised tif datasets_
 
 ## Where will they be found in future?
 
