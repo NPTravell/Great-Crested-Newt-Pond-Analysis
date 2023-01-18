@@ -1,6 +1,7 @@
-<p align="right">Data last refreshed on: 05/04/2022 </p>
-<p align="right">Data last analysed on: 16/01/2023</p>
-<p align="right">Latest record on: 20/12/2020 </p>
+<p align="right"><sup>Latest record on: 20/12/2020<br /> 
+Data last refreshed on: 05/04/2022<br /> 
+Data last analysed on: 16/01/2023</sup></p>
+
 
 # Great-Crested-Newt-UK-Pond-Analysis
 
@@ -24,6 +25,7 @@ May, and Wednesdays, are when most GCNs are reported - however this is not indic
 Due to the large number individual 'nearest towns' (to the survyed pond) and districts in which ponds were found, the spatial visualisations below are filtered to the top 10 records. Note that district data was extracted seperately via the coordinates of the pond, due to the ambiguous granularity (for example - "Gloucestershire, Wiltshire and Bristol/Bath area" in the original dataset)
 
 ![Untitled design (5)](https://user-images.githubusercontent.com/122735369/212550996-275f2d32-39c7-476c-ac56-f4d47f796300.jpg)
+<p align="center"><sup>The above visuals include all rows and years in the dataset, and may differ from the year-on-year changes table below</sup></p>
 
 The following is a chloropleth map showing which counties have the highest counts of Great Crest Newts (across all years), along showing the locations all pond sites and whether they were found to occupy the site or not
 
@@ -42,7 +44,7 @@ To understand drivers of GCN presence, geographical covariates were extracted fr
 
 Where covariate data was not present in the buffer zone, a district wide average was used, and where a district average was not available, a district wide average was used instead.
 
-Overall, 7 geographical covariates were extracted - [human footprint](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint) (consisting of cumulative human pressure from 8 variables, such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface). Data was extracted as a yearly average.
+Overall, 7 geographical covariates were extracted - [human footprint](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint) (consisting of cumulative human pressure from 8 variables, such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface). Data was extracted as a yearly average and the median value for each buffer used.
 
 ![Untitled design (7)](https://user-images.githubusercontent.com/122735369/212551258-9d945a85-0aea-47fe-a32b-8f498c68ca96.jpg)
 
