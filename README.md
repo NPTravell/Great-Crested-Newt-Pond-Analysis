@@ -11,9 +11,9 @@ This project intends to close the knowledge gap between ambiguous newt populatio
 
 This annotated and easy to follow script is intended to be used via the scheduled task manager on a windows remote desktop and the output to function as an automated report (many of the visualisations below are dynamically filtered to top rows in case future datasets have increasing size, for example). The script can be expanded to export datasets to a SQL data warehouse (coming soon) or ported directly to an Altair python dashboard/PowerBI
 
-## When and when are Great Crested Newts found?
+## When and when are Great Crested Newts (GCN) found?
 
-Great Crested Newt counts are summed and presented below. Many sightings either did not have dates, or had poor quality (for example, many sightings are in 1905, and it is unclear if that is approriate) so these records will not be counted in the temporal visualisations
+GCN counts are summed and presented below. Many sightings either did not have dates, or had poor quality (for example, many sightings are in 1905, and it is unclear if that is approriate) so these records will not be counted in the temporal visualisations
 
 ![Untitled design](https://user-images.githubusercontent.com/122735369/212549286-e11f6132-33ad-42ec-b2bb-a074f38acf66.jpg)
 
@@ -27,7 +27,7 @@ Due to the large number individual 'nearest towns' (to the survyed pond) and dis
 ![Untitled design (5)](https://user-images.githubusercontent.com/122735369/212550996-275f2d32-39c7-476c-ac56-f4d47f796300.jpg)
 <p align="center"><sup>The above visuals include all rows and years in the dataset, and may differ from the year-on-year changes table below</sup></p>
 
-The following is a chloropleth map showing which counties have the highest counts of Great Crest Newts (across all years), along showing the locations all pond sites and whether they were found to occupy the site or not
+The following is a chloropleth map showing which counties have the highest counts of GCN (across all years), along with showing the locations all pond sites and whether GCN were found to occupy the site or not
 
 ![Untitled design (1)](https://user-images.githubusercontent.com/122735369/212669721-84fe39f2-2ce8-448b-8196-917dca53f4ff.png)
 <p align="center"><sup>An interactive map (right) is being developed and will be available soon</sup></p>
@@ -38,7 +38,7 @@ No observer variables are available in this dataset, which can bias the dataset 
 
 <p align="center"><sup>This table shows total GCN observations counts in each district, and is ranked by the average of all three years displayed (2017, 2018, and 2019).</sup></p>
 
-## Why are they found there?
+## Why are Great Crested Newts (GCN) found where they are?
 
 To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations, and the median value recorded (along with minimum, maximum, and mean values, though they were not used in the analysis). Data was not available for all covariates across all years so a geographical dataset for the most recent year was used. Locations of datasets are included in the script.
 
@@ -62,7 +62,7 @@ The most important variables were indices of [human pressure](https://sedac.cies
 
 Climatic variables (except precipitation and sunlight) could potentially be dropped due to both England's temperate climate with few extremes in spatial variations and their lower importance values in the model above.
 
-## Where will they be found in future?
+## Where will Great Crested Newts (GCN) be found in future?
 
 Using the above tuning and variable inputs, model 732 was used to predict occupancy at each site. GCN presence was then summed for each district, and the results displayed below. Note that only positive differences where _more_ GCNs were predicted are highlighed in the right hand visual, as recommending that less attention be paid to ecological surveys would be inappropriate. As a result, we have potential leads on where we can find potentially hidden GCN populations, and we could drive efforts to discover increasing numbers of willing local volunteers.
 
