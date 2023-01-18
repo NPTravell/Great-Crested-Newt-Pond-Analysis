@@ -8,7 +8,7 @@ The Great Crested Newt (GCN) is a European protected species and contributes to 
 
 This project intends to close the knowledge gap between ambiguous newt population sizes and ideal environmental conditions at a district level via the use of ["surveyed priority pond"](https://naturalengland-defra.opendata.arcgis.com/datasets/Defra::surveyed-priority-ponds-england/about) data by Natural England/Defra and analysing Great Crested Newt (GCN) location patterns via the use of machine learning models
 
-The script is intended to be used via the scheduled task manager on a windows remote desktop and the output to function as an automated report (many of the visualisations below are dynamically filtered to top rows in case future datasets have increasing size, for example). The script can be expanded to export datasets to a SQL data warehouse (coming soon) or ported directly to an Altair python dashboard/PowerBI
+This annotated and easy to follow script is intended to be used via the scheduled task manager on a windows remote desktop and the output to function as an automated report (many of the visualisations below are dynamically filtered to top rows in case future datasets have increasing size, for example). The script can be expanded to export datasets to a SQL data warehouse (coming soon) or ported directly to an Altair python dashboard/PowerBI
 
 ## When and when are Great Crested Newts found?
 
@@ -38,7 +38,7 @@ No observer variables are available in this dataset, which can bias the dataset 
 
 ## Why are they found there?
 
-To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations, and the median value recorded (along with minimum, maximum, and mean values, though they were not used in the analysis). Data was not available for all covariates across all years so a geographical dataset for the most recent year was used.
+To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations, and the median value recorded (along with minimum, maximum, and mean values, though they were not used in the analysis). Data was not available for all covariates across all years so a geographical dataset for the most recent year was used. Locations of datasets are included in the script.
 
 Where covariate data was not present in the buffer zone, a district wide average was used, and where a district average was not available, a district wide average was used instead.
 
