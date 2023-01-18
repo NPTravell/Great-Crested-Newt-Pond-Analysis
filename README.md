@@ -42,7 +42,7 @@ To understand drivers of GCN presence, geographical covariates were extracted fr
 
 Where covariate data was not present in the buffer zone, a district wide average was used, and where a district average was not available, a district wide average was used instead.
 
-Overall, 7 geographical covariates were extracted - human footprint (consisting of cumulative human pressure from 8 variables, such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface). Data was extracted as a yearly average.
+Overall, 7 geographical covariates were extracted - [human footprint](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint) (consisting of cumulative human pressure from 8 variables, such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface). Data was extracted as a yearly average.
 
 ![Untitled design (7)](https://user-images.githubusercontent.com/122735369/212551258-9d945a85-0aea-47fe-a32b-8f498c68ca96.jpg)
 
@@ -56,29 +56,29 @@ Each combination was run 5 times and various performance metrics (the boxplot be
 
 <p align="center"><sup>Top left: model 732 performance predicting GCN presence based on geographical data vs actual GCN presence. Top right: feature importance scores for model 732. Bottom: various performance metrics from the 5 models with the highest accuracy</sup></p>
 
-The most important variables were indices of human development, and the amount of sunlight and rain, whereas the least important variables in this model were hillshade, windspeed and elevation. Future analyses could split apart the human footprint indices to determine the most important factor contained (for example pollution, or navigable waterways), and if possible the data should be collected for each year/month that the pond was survyed in (as human footprint will change as new infrastructure is built, and certain years may have more sunlight).
+The most important variables were indices of [human pressure](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint), and the amount of sunlight and rain, whereas the least important variables in this model were hillshade, windspeed and elevation. Future analyses could split apart the human footprint indices to determine the most important factor contained (for example pollution, or navigable waterways), and if possible the data should be collected for each year/month that the pond was survyed in (as human footprint will change as new infrastructure is built, and certain years may have more sunlight).
 
-Climatic variables could potentially be dropped due to both England's temperate climate with few extremes in spatial variations and their lower importance values in the model above.
+Climatic variables (except precipitation and sunlight) could potentially be dropped due to both England's temperate climate with few extremes in spatial variations and their lower importance values in the model above.
 
 ## Where will they be found in future?
 
-_Model 732 was used to predict site occupancy based on the geographical covariates at each site. GCN presence was then summed for each district, and the results displayed below. Note that only positive differences where _more_ GCNs were predicted are highlighed in the right hand visual, as recommending that less attention be paid to surveying certain counties would be inappropriate. As a result, we have potential leads on where we should make more of an effort to discover willing volunteers and find potentially hidden GCN populations.
+Using the above tuning and variable inputs, model 732 was used to predict occupancy at each site. GCN presence was then summed for each district, and the results displayed below. Note that only positive differences where _more_ GCNs were predicted are highlighed in the right hand visual, as recommending that less attention be paid to ecological surveys would be inappropriate. As a result, we have potential leads on where we can find potentially hidden GCN populations, and we could drive efforts to discover increasing numbers of willing local volunteers.
 
 ![Untitled design (3)](https://user-images.githubusercontent.com/122735369/212971941-19e94848-fed2-44cd-b610-88f862843398.png)
 
-## What steps should we take?
+## What steps could we take?
 
 This project aimed to better understand the drivers behind Great Crested Newt (GCN) presence at a district level through the use of machine learning and geographical data. The following guidance is provided based on the output of this project:
 
 Conservation steps:
-- Ponds in areas with low HFP, higher precipitation and less GHI should be prioritised for protection
-- Relocation should attempt to find ponds fitting the above criteria
-- Volunteer recuitment efforts should be raised in certain districts where GCN presence was predicted to be higher than was recorded
-- Data collection should be standardised to avoid drastic changes in GCN population measurement for example:
+- Ponds in areas with low [human footprint](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint) (an indice of 8 human pressure variables), higher precipitation and less GHI could be prioritised for protection
+- Relocation efforts could attempt to find ponds fitting the above criteria
+- Volunteer recuitment efforts could be raised in certain districts where GCN presence was predicted to be higher than was recorded
+- Data collection could be standardised to avoid drastic changes in GCN population measurement for example:
     - ensuring a level of identification skill
     - striving for more even data collection throughout the year
-    - collecting some form of identifier or observer covariates such as years of experience or background, visibility on the day of collection, or time spent at pond
+    - collecting some form of identifier or observer covariates such as years of experience, identification skill, ecological background, visibility on the day of collection, or time spent at pond
 
 Analytical steps:
-- Human footprint indices should be split out and each covariate should be analysed to determine what the most important human pressure factors are (for example navigable waterways versus pollution)
+- Human footprint indices should be split out and each covariate should be analysed to determine what the most important human pressure factors are (for example which has the highest feature importance value - navigable waterways or pollution?)
 - Further effort should be made to locate geopgraphical datasets for each year, and each month, to identify more accurate relationships between these covariates and GCN presence
