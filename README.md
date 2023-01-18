@@ -38,23 +38,27 @@ No observer variables are available in this dataset, which can bias the dataset 
 
 ## Why are they found there?
 
-To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations. Data was not available for all covariates across all years so the most recent geographical dataset was used.
+To understand drivers of GCN presence, geographical covariates were extracted from publicly available '.tif' files in a 2500m buffer around pond locations, and the median value recorded (along with minimum, maximum, and mean values, though they were not used in the analysis). Data was not available for all covariates across all years so a geographical dataset for the most recent year was used.
 
 Where covariate data was not present in the buffer zone, a district wide average was used, and where a district average was not available, a district wide average was used instead.
 
-Overall, 7 geographical covariates were extracted - human footprint (consisting of cumulative human pressure consisting of 8 variables such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface).
+Overall, 7 geographical covariates were extracted - human footprint (consisting of cumulative human pressure from 8 variables, such as built up environmental and crop land scales), hillshade, elevation, human population, precipitation, windspeed 10m from the ground, and global horizontal irradiance (total solar radiation on a horizontal surface). Data was extracted as a yearly average.
 
 ![Untitled design (7)](https://user-images.githubusercontent.com/122735369/212551258-9d945a85-0aea-47fe-a32b-8f498c68ca96.jpg)
 
 <p align="center"><sup>Example visualised geographical tif datasets</sup></p>
 
-Combinations of these variables (for example, elevation alone, or elevation with precipitation), along with a range of machine learning model architecture (such as random forest, XGboost, and logistic regression) were iteratively tested to determine which variables and model would be most accurate. Each combination was run 5 times and various performances were visualised to assist with model selection. The most accurate model (XGboost - ~71% accurate using elevation, global horizontal irradiance, human footprint, hillshade, precipitation, and windspeed data) was then fine tuned to acheive increased prediction accuracy (~76% accurate)
+Combinations of these variables (for example, elevation alone, or elevation with precipitation), along with a range of machine learning model architecture (such as random forest, XGboost, and logistic regression) were iteratively tested to determine which variables and model would be most accurate.
+
+Each combination was run 5 times and various performance metrics (the boxplot below) were visualised to assist with model selection. Model 732 (using "XGboost" architecture and elevation, global horizontal irradiance, human footprint, hillshade, precipitation, and windspeed data) was chosen due to its accurate performance (approximately 71% accurate) as well as low training and test speeds (not visualised). Model 732 was then fine tuned to acheive increased prediction accuracy (~76% accurate).
 
 ![Untitled design (2)](https://user-images.githubusercontent.com/122735369/212969463-2fb9d16e-3df3-42b9-85e2-f220e76166e0.png)
 
 <p align="center"><sup>Top left: model 732 performance predicting GCN presence based on geographical data vs actual GCN presence. Top right: feature importance scores for model 732. Bottom: various performance metrics from the 5 models with the highest accuracy</sup></p>
 
-The most important variables were indices of human development, and the amount of sunlight and rain, whereas the least important variables in this model were hillshade, windspeed and elevation. Future analyses could split apart the human footprint indices to determine the most important factor contained (for example pollution, or navigable waterways), whereas the climatic variables could be dropped seeing as England is has a temperate climate with few extremes in spatial variations. Future analyses could also include geographical data by year (as human footprint will change as new infrastructure is built, and certain years may have more sunlight) to produce a more relevant model
+The most important variables were indices of human development, and the amount of sunlight and rain, whereas the least important variables in this model were hillshade, windspeed and elevation. Future analyses could split apart the human footprint indices to determine the most important factor contained (for example pollution, or navigable waterways), and if possible the data should be collected for each year/month that the pond was survyed in (as human footprint will change as new infrastructure is built, and certain years may have more sunlight).
+
+Climatic variables could potentially be dropped due to both England's temperate climate with few extremes in spatial variations and their lower importance values in the model above.
 
 ## Where will they be found in future?
 
