@@ -1156,3 +1156,22 @@ plt.legend(loc="upper left")
 plt.savefig('./visualisations/GCN_survey_chloropleth_noponds_increases.png', bbox_inches='tight')    
 plt.show()
 del(ax,fig,base,cmap)
+
+#visualise table
+import textwrap as twp
+increasestable=merged_county_data[merged_county_data['increases']>0]
+increasestable['County'] = increasestable.index
+increasestable=increasestable[['County','increases']]
+increasestable=increasestable.sort_values('increases',ascending=False)
+columns=[twp.fill('County',25), twp.fill('Predicted GCN population increase',25)]
+#increasestable.rename(columns={'increases':'Predicted GCN population increase'},inplace=True)
+
+fig, ax = plt.subplots()
+fig.patch.set_visible(False)
+ax.axis('off')
+ax.axis('tight')
+table=ax.table(cellText=increasestable.values, colLabels=columns, loc='center')
+table.scale(0.5, 1.5)
+plt.rcParams['figure.dpi'] = 300
+fig.savefig('./visualisations/increases_table.png', bbox_inches='tight')
+plt.show()
