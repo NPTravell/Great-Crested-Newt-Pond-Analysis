@@ -66,7 +66,7 @@ Climatic variables (except precipitation and sunlight) could potentially be drop
 
 Using the above tuning and variable inputs, model 732 was used to predict occupancy at each site. GCN presence was then summed for each district, and the results displayed below. Note that only positive differences where _more_ GCNs were predicted are highlighed in the right hand visual, as recommending that less attention be paid to ecological surveys would be inappropriate. As a result, we have potential leads on where we can find potentially hidden GCN populations, and we could drive efforts to discover increasing numbers of willing local volunteers.
 
-![Untitled design (3)](https://user-images.githubusercontent.com/122735369/212971941-19e94848-fed2-44cd-b610-88f862843398.png)
+![Untitled design (4)](https://user-images.githubusercontent.com/122735369/213144445-a50c484f-54dc-4c97-ac6e-368c35221cbf.png)
 
 ## What steps could we take?
 
