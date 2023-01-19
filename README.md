@@ -48,7 +48,7 @@ Overall, 7 geographical covariates were extracted - [human footprint](https://se
 
 ![Untitled design (7)](https://user-images.githubusercontent.com/122735369/212551258-9d945a85-0aea-47fe-a32b-8f498c68ca96.jpg)
 
-<p align="center"><sup>Example visualised geographical tif datasets</sup></p>
+<p align="center"><sup>Example visualised geographical tif datasets. Each pixel corresponds to a covariate value, which was extracted at each pond site</sup></p>
 
 Combinations of these variables (for example, elevation alone, or elevation with precipitation), along with a range of machine learning model architecture (such as random forest, XGboost, and logistic regression) were iteratively tested to determine which variables and model would be most accurate.
 
