@@ -73,7 +73,7 @@ Using the above tuning and variable inputs, model 732 was used to predict occupa
 This project aimed to better understand the drivers behind Great Crested Newt (GCN) presence at a district level through the use of machine learning and geographical data. The following guidance is provided based on the output of this project:
 
 Conservation steps:
-- Ponds in areas with low [human footprint](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint) (an indice of 8 human pressure variables), higher precipitation and less GHI could be prioritised for protection
+- Ponds in areas with low [human footprint](https://sedac.ciesin.columbia.edu/data/set/wildareas-v3-2009-human-footprint) (an indice of 8 human pressure variables), higher precipitation (rain and snowfall) and lower GHI (sunlight) could be prioritised for protection
 - Relocation efforts could attempt to find ponds fitting the above criteria
 - Volunteer recuitment efforts could be raised in certain districts where GCN presence was predicted to be higher than was recorded
 - Data collection could be standardised to avoid drastic changes in GCN population measurement for example:
