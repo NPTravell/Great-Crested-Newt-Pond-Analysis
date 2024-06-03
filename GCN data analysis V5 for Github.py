@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
 # =============================================================================
-# #STEP 1A: Initial Data Exploration
+# #STEP 1: Initial Data Exploration
 # =============================================================================
 
 #Dependencies
@@ -10,38 +8,20 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 
-#Set up WD and rab dataframe from api (21/12 now grabbing from geojson file  due to API issues in V2)
 os.chdir() #removed for github
-pond_data=gpd.read_file('Surveyed_priority_ponds_England_-5753754621454494271.geojson') #5430 rows. above is exceeding transfer limit
+pond_data=gpd.read_file('Surveyed_priority_ponds_England_-5753754621454494271.geojson') #5430 rows
 
-#remove extra columns and make a concise df
+#remove extra columns and make a more and readable concise df
 list(pond_data.columns)
-pond_data_conc=pond_data[['OBJECTID','Site_name','Survey_date','x_value','y_value','NS_com_ame','NEAREST_TOWN','NUTS212NM','geometry']]
-pond_data_conc.rename(columns={'Site_name':'Site','NEAREST_TOWN':'Nearest_town','NS_com_ame':'common_species_name','NUTS212NM':'County'},inplace=True)
-pond_data=pond_data_conc
-del(pond_data_conc)
-
-#clean up date and ugment dataset with other date variables (where date exists)
-pond_data_na_date=pond_data[pond_data['Survey_date'].isna()] #204 rows
-pond_data_no_na_date=pond_data[pond_data['Survey_date'].notnull()]#5226 - totals correctly 
-pond_data_no_na_date['Survey_date'] = pd.to_datetime(pond_data_no_na_date['Survey_date'])
-pond_data_no_na_date['Month'] = pond_data_no_na_date['Survey_date'].dt.month 
-pond_data_no_na_date['Year'] = pond_data_no_na_date['Survey_date'].dt.year
-pond_data_no_na_date['Weekday']=pond_data_no_na_date['Survey_date'].dt.dayofweek
-pond_data_no_na_date['Day'] = pond_data_no_na_date['Survey_date'].dt.day
-pond_data_no_na_date['month_name']= pond_data_no_na_date['Survey_date'].dt.strftime("%b")
-pond_data_no_na_date['Survey_date'] = pd.to_datetime(pond_data_no_na_date['Survey_date']).dt.date #convert datetime to date
-#min(pond_data_no_na_date['Survey_date'])#dq check the 1905's seem suspicious!
-#max(pond_data_no_na_date['Survey_date'])#dq check
-pond_data=pond_data_no_na_date.append(pond_data_na_date) #add datasets back together
-del(pond_data_no_na_date,pond_data_na_date)
+pond_data=pond_data[['OBJECTID','Site_name','Survey_date','x_value','y_value','NS_com_ame',
+                          'NEAREST_TOWN','NUTS212NM','geometry']].rename(columns={'Site_name':'Site','NEAREST_TOWN':'Nearest_town',
+                          'NS_com_ame':'common_species_name','NUTS212NM':'County'},inplace=True)
 
 #brief quality check 
 pond_data.info() #some common names missing - that's expected as not every survey found a species
 pond_data.dtypes
 pond_data['Site'].unique() #very messy but not a huge deal as it's not part of the analysis (coords far more valuable)
-pond_data.groupby(['Nearest_town']).size().reset_index(name='counts')
-pond_data['common_species_name'].unique() #'Great Crested Newt' and 'Common Toad, Great Crested Newt' - will need to rename latter
+pondpond_data['common_species_name'].unique() #'Great Crested Newt' and 'Common Toad, Great Crested Newt' - will need to rename latter
 pond_data['common_species_name'] = pond_data['common_species_name'].replace(['Common Toad, Great Crested Newt'], 'Great Crested Newt')
 pond_data['County'].unique() #"Wiltsire and Bristol/Bath area" isn't an appropriate group - many other examples, so I need to grab county via coordinates
 pond_data['Nearest_town'].unique() #not familiar enough with towns of England - can possibly confirm spelling with a list of towns on a web site if these are needed for analysis 
@@ -50,266 +30,24 @@ pond_data['Nearest_town'].unique() #not familiar enough with towns of England - 
 from geopandas.tools import sjoin
 
 county_lookup = gpd.read_file('./UK shapefile/UK trans.shp')
-county_lookup = sjoin(pond_data, county_lookup, how='left',op="within")
-county_lookup.rename(columns={'NAME_2':'Extracted County'}, inplace=True)
+county_lookup = sjoin(pond_data, county_lookup, how='left',op="within").rename(columns={'NAME_2':'Extracted County'}, inplace=True)
 county_lookup=county_lookup[['OBJECTID','NAME_1','Extracted County']]
 
 #join extracted county df to pond_data df with extracted covariates, then clean up the columns
 pond_data=pd.merge(pond_data,county_lookup,on='OBJECTID', how='left')
-pond_data['County']=pond_data['Extracted County']
-pond_data = pond_data.drop('Extracted County',axis=1)
+pond_data['County']=pond_data['Extracted County'].drop('Extracted County',axis=1)
 del(county_lookup)
 
-#replace the 2 county/country NAs (how did this even happen? Investigate as it may scale)
-pond_data['County'] = np.where((pond_data['OBJECTID'] == 3451), 'Merseyside', pond_data['County'])
-pond_data['County'] = np.where((pond_data['OBJECTID'] == 3452), 'Merseyside', pond_data['County'])
-pond_data['NAME_1'] = np.where((pond_data['OBJECTID'] == 3451), 'England', pond_data['NAME_1'])
-pond_data['NAME_1'] = np.where((pond_data['OBJECTID'] == 3452), 'England', pond_data['NAME_1'])
+#replace the 2 county/country NAs
+pond_data['County'] = np.where((pond_data['OBJECTID'] == 3451 | pond_data['OBJECTID'] == 3452), 'Merseyside', pond_data['County'])
+pond_data['NAME_1'] = np.where((pond_data['OBJECTID'] == 3451| pond_data['OBJECTID'] == 3452), 'England', pond_data['NAME_1'])
 
 #filter to England and save
-pond_data.County.nunique()
-pond_data=pond_data[pond_data['NAME_1'] == 'England']
-pond_data = pond_data.drop('NAME_1',axis=1)
-pond_data.to_csv('pond_data.csv',index=False)
-#pond_data = gpd.GeoDataFrame(pond_data, crs='epsg:27700')
-
-# =============================================================================
-# #STEP 1B: Basic descriptive analytics and visualisation
-# =============================================================================
-import statistics
-import matplotlib.pyplot as plt
-
-#Count how many unique entries there are across space
-county_allcount=pond_data.County.nunique()
-site_allcount=pond_data.Site.nunique()
-town_allcount=pond_data.Nearest_town.nunique()
-
-#filter to gcn only and count how many unique entries there are across space
-df=pond_data[pond_data['common_species_name']=='Great Crested Newt'] 
-county_gcncount=df.County.nunique()
-site_gcncount=df.Site.nunique()
-town_gcncount=df.Nearest_town.nunique()
-
-#%s occupied from above
-county_percent=str(round(county_gcncount/county_allcount*100,1))
-site_percent=str(round(site_gcncount/site_allcount*100,1))
-town_percent=str(round(town_gcncount/town_allcount*100,1)) 
-
-#clean up by turning the above into a df
-count_df=pd.DataFrame(columns=('Variable','All_count','Occupied','%'))
-count_df.loc[len(count_df)]=['County',county_allcount,county_gcncount,county_percent]
-count_df.loc[len(count_df)]=['Site',site_allcount,site_gcncount,site_percent]
-count_df.loc[len(count_df)]=['Nearest_town',town_allcount,town_gcncount,town_percent]
-del(county_allcount,county_gcncount,county_percent,site_allcount,site_gcncount,site_percent,town_allcount,town_gcncount,town_percent)
-
-#create stats dataframe
-col_names=['Variable','min_GCN','max_GCN','range_GCN','median_GCN','count_occupied']
-stats_df_area=pd.DataFrame(columns=col_names) # create dataframe
-del(col_names)
-
-#Loops across spatial granularity produce summary stats and simple plots
-granularity=['County','Site','Nearest_town'] 
-Variable='County' #debugging
-df=pond_data[pond_data['common_species_name']=='Great Crested Newt'] 
-df_backup=df #for resetting in for loop
-for i in granularity:
-    Variable=i
-    #Variable='County' #debugging
-    if Variable == 'Nearest_town':
-        df=df.groupby(['Nearest_town','County']).size().reset_index(name='counts') 
-        df=df.drop_duplicates(subset='Nearest_town') #this is duplicated because a 2 sites in different counties can have the same nearest town
-        #df=df.sort_values('counts',ascending=False).head(15) #to filter out
-    if Variable in ('County','Site'):
-        df=df.groupby([Variable]).size().reset_index(name='counts')
-        df=df.sort_values('counts',ascending=True)
-    if Variable=='Site':
-        df=df[df['Site']!='unknown']
-    va=Variable #variable
-    mi=min(df['counts'])
-    ma=max(df['counts'])
-    ra=max(df['counts'])-min(df['counts']) #range
-    me=statistics.median(df['counts']) #median
-    n=len(df.counts) #n count
-    stats_df_area.loc[len(stats_df_area)] = [va,mi,ma,ra,me,n] #add row of data to bottom of stats_df
-    del(va,mi,ma,ra,me,n) #clean up
-    #plot it
-    if Variable =='Site':
-        one_counts=len(df[df['counts'] == 1]) # for captioning
-        df=df[(df['counts'] > 1)] # filter out for easier visualising, caption "+X sites with one sighting"
-        txt="*Not visualised are " + str(one_counts) + " instances of a " + Variable + " with only 1 sighting"
-        fig, ax = plt.subplots(figsize=(5,5))
-        plt.title("Total GCN sightings per " + Variable)
-        plt.suptitle(txt, fontsize=8,horizontalalignment='right',x=.82)
-    if Variable in ('County','Nearest_town'):
-        df=df.sort_values('counts',ascending=False).head(10) #to filter out
-        df=df.sort_values('counts',ascending=True)
-        txt=""
-        fig, ax = plt.subplots(figsize=(5,5))
-        plt.title("Total GCN sightings per top 10 " + Variable+"(s)")
-        plt.suptitle(txt, fontsize=8,horizontalalignment='right',y=0.91,x=.84)
-    y = df['counts']
-    ax.barh(df[Variable],df['counts']) 
-    plt.xlabel("Sightings")
-    #plt.ylabel(Variable)
-    for i, v in enumerate(y):
-        ax.text(v + 0, i, str(v), color='black', fontsize=7, ha='left', va='center')
-    plt.show()
-    fig.savefig('./visualisations/'+Variable+'.png', bbox_inches='tight')
-    df=df_backup  
-del (i,granularity,Variable,txt, one_counts,df_backup,v,y,fig,ax)
-
-#create counts per year table, add % change, then rank by the average across all years, finally save it
-df=pond_data[pond_data['common_species_name']=='Great Crested Newt'] 
-annualcounts=df['County']
-annualcounts=annualcounts.drop_duplicates()
-years=[2016,2017,2018,2019]
-#i=2017 #debugging
-for i in years:
-    yeardf=df[df['Year']==i]
-    yeardf=yeardf.groupby(['County']).size().reset_index(name='counts')
-    yeardf.rename(columns={'counts':i}, inplace=True)
-    annualcounts=pd.merge(annualcounts,yeardf,how="left")
-    annualcounts[i].fillna(value=0, inplace=True)
-#the below doesn't look visually sound due to massive changes from 0 to >100 and back again; percentages are tricky there, so thoughts should go to reworking this table
-annualcounts['Change 16/17']=(round(((annualcounts[2017]-annualcounts[2016])/annualcounts[2016])*100)).astype(str)+'%'
-annualcounts['Change 16/17']=annualcounts['Change 16/17'].replace('inf%','-')
-annualcounts['Change 16/17']=annualcounts['Change 16/17'].replace('nan%','-')
-annualcounts['Change 17/18']=(round(((annualcounts[2018]-annualcounts[2017])/annualcounts[2017])*100,0)).astype(str)+'%'
-annualcounts['Change 17/18']=annualcounts['Change 17/18'].replace('inf%','-')
-annualcounts['Change 17/18']=annualcounts['Change 17/18'].replace('nan%','-')
-annualcounts['Change 18/19']=(round(((annualcounts[2019]-annualcounts[2018])/annualcounts[2018])*100,0)).astype(str)+'%'
-annualcounts['Change 18/19']=annualcounts['Change 18/19'].replace('inf%','-')
-annualcounts['Change 18/19']=annualcounts['Change 18/19'].replace('nan%','-')
-annualcounts=annualcounts[['County',2017,'Change 16/17',2018,'Change 17/18',2019,'Change 18/19']]
-annualcounts['Average']=round(annualcounts[2017]+annualcounts[2018]+annualcounts[2019]/3,1)
-annualcounts=annualcounts.sort_values('Average',ascending=False).head(10)
-#annualcounts = annualcounts.drop('Average',axis=1)
-
-#visualise table
-fig, ax = plt.subplots()
-fig.patch.set_visible(False)
-ax.axis('off')
-ax.axis('tight')
-table=ax.table(cellText=annualcounts.values, colLabels=annualcounts.columns, loc='center')
-plt.rcParams['figure.dpi'] = 300
-table.auto_set_font_size(False)
-table.set_fontsize(3)
-fig.savefig('./visualisations/year_on_year_change.png', bbox_inches='tight')
-plt.show()
-del(annualcounts,yeardf,years,df)
-
-#remove empty date rows
-df=pond_data[pond_data['Survey_date'].notnull()] #some date fields were empty
-df_backup=df
-
-#Count how many unique entries there are across time
-year_allcount=df.Year.nunique()
-month_allcount=df.Month.nunique()
-weekday_allcount=df.Weekday.nunique()
-
-#filter to gcn only and count how many unique entries there are across time
-df=pond_data[pond_data['common_species_name']=='Great Crested Newt'] 
-df=pond_data[pond_data['Survey_date'].notnull()] #some date fields were empty
-year_gcncount=df.Year.nunique()
-month_gcncount=df.Month.nunique()
-weekday_gcncount=df.Weekday.nunique()
-
-#%s occupied from above
-year_percent=str(round(year_gcncount/year_allcount*100,1))
-month_percent=str(round(month_gcncount/month_allcount*100,1))
-weekday_percent=str(round(weekday_gcncount/weekday_allcount*100,1)) 
-
-#clean up by turning the above into a df
-datecount_df=pd.DataFrame(columns=('Variable','All_count','Occupied','%'))
-datecount_df.loc[len(datecount_df)]=['Year',year_allcount,year_gcncount,year_percent]
-datecount_df.loc[len(datecount_df)]=['Month',month_allcount,month_gcncount,month_percent]
-datecount_df.loc[len(datecount_df)]=['Weekday',weekday_allcount,weekday_gcncount,weekday_percent]
-del(year_allcount,year_gcncount,year_percent,month_allcount,month_gcncount,month_percent,weekday_allcount,weekday_gcncount,weekday_percent)
-
-#create stats dataframe
-col_names=['Variable','Count','min_GCN','max_GCN','range_GCN','median_GCN']
-stats_df_date=pd.DataFrame(columns=col_names) # create dataframe
-del(col_names)
-
-##Loops across temporal granularity and produce summary stats and simple plots
-df=pond_data[pond_data['Survey_date'].notnull()] #some date fields were empty
-df=pond_data[pond_data['common_species_name']=='Great Crested Newt'] 
-granularity=['Year','Month','Weekday'] 
-#granularity=['Year'] #debugging 
-df_backup=df
-for i in granularity:
-    Variable=i
-    if Variable=='Month':
-        df=df.groupby([Variable,'month_name']).size().reset_index(name='counts')
-    else:
-        df=df.groupby([Variable]).size().reset_index(name='counts')
-    if Variable=='Year':
-         df=df[df['Year']!= 1905]
-    va=Variable #variable
-    mi=min(df['counts'])
-    ma=max(df['counts'])
-    ra=max(df['counts'])-min(df['counts']) #range
-    me=statistics.median(df['counts']) #median
-    n=len(df.counts) #n count
-    stats_df_date.loc[len(stats_df_date)] = [va,n,mi,ma,ra,me] #add row of data to bottom of stats_df
-    del(va,mi,ma,ra,me,n) #clean up
-    
-    #plot it
-    y = df['counts']
-    x = df[Variable]
-    fig = plt.figure()
-    ax = fig.add_subplot()
-    for i,j in zip(x,y):
-        ax.annotate(str(j),xy=(i,j),ha='center', va='bottom',fontsize=8)
-    plt.bar(df[Variable],df['counts'],width=0.8) 
-    plt.xlabel(Variable)
-    plt.ylabel("Sightings")
-    plt.title("Total GCN sightings per " + Variable)
-    if Variable=='Month':
-        # Set the tick positions
-        ax.set_xticks(df['Month'])
-        # Set the tick labels
-        label=df['month_name']
-        #label = ['January','February','March','April','May','June','July','August','September','October','November','December']
-        ax.set_xticklabels(label)
-    if Variable=='Weekday':
-        # Set the tick positions
-        ax.set_xticks(df['Weekday'])
-        # Set the tick labels
-        label = ['Monday','Tuesday', 'Wednesday' ,'Thursday', 'Friday', 'Saturday', 'Sunday']
-        ax.set_xticklabels(label)    
-    #does an else need to go here?
-    plt.xticks(x,rotation = 45, fontsize=8)
-    plt.show()
-    fig.savefig('./visualisations/'+Variable+'.png', bbox_inches='tight')
-    df=df_backup
-del (i,granularity,Variable,ax,fig,j,x,y,df)
-
-#merge count and stats_df
-EDA_df=pd.merge(count_df,stats_df_area,on='Variable')
-temp_date_EDA_df=pd.merge(datecount_df,stats_df_date,on='Variable')
-del (EDA_df['count_occupied'],temp_date_EDA_df['Count'])
-EDA_df=EDA_df.append(temp_date_EDA_df)
-del (count_df,stats_df_area,datecount_df,stats_df_date,temp_date_EDA_df,df_backup)
-EDA_df.rename(columns={'All_count':'Total (n)'},inplace=True)
-EDA_df.to_csv('./visualisations/EDA_df.csv',index=False)
-
-#visualise table
-fig, ax = plt.subplots()
-fig.patch.set_visible(False)
-ax.axis('off')
-ax.axis('tight')
-ax.table(cellText=EDA_df.values, colLabels=EDA_df.columns, loc='center')
-plt.rcParams['figure.dpi'] = 300
-fig.savefig('./visualisations/EDA_table.png', bbox_inches='tight')
-plt.show()
-del(ax,fig,label,EDA_df)
+pond_data=pond_data[pond_data['NAME_1'] == 'England'].drop('NAME_1',axis=1).to_csv('pond_data.csv',index=False)
 
 # =============================================================================
 # STEP 2A: clipping and reformating rasters to match data bounds and CRS
 # =============================================================================
-
-# #https://thinkinfi.com/clip-raster-with-a-shape-file-in-python/ absolute Chad - the script works exactly as I need it to
 
 import fiona
 import rasterio
@@ -348,11 +86,6 @@ with rasterio.open(input_imagery_file) as imagery:
                 resampling=Resampling.nearest)
 del(imagery,kwargs,i,height,dst,transform,transformed_imagery_file,width,dst_crs,input_imagery_file)  
 
-# Plot again after transformation. You can observe axis value have changed
-tr_imagery = rasterio.open('./tiffs/1 transformed/'+filename+'_trans.tif')
-show(tr_imagery)
-tr_imagery.crs
-
 # Read Shape file
 with fiona.open('./UK shapefile/UK trans.shp', "r") as shapefile:
     shapes = [feature["geometry"] for feature in shapefile]
@@ -371,10 +104,6 @@ out_meta.update({"driver": "GTiff",
 with rasterio.open("./tiffs/2 clipped/"+filename+"_trans_clip.tif", "w", **out_meta) as dest:
     dest.write(out_image)
 del(src,shapes,tr_imagery,out_image,out_meta,dest,out_transform,shapefile)
-
-#test that worked
-imagery = rasterio.open("./tiffs/2 clipped/"+filename+"_trans_clip.tif")
-show(imagery) #niiiiiiiiiice
 
 # =============================================================================
 # # STEP 2B: Extract covariates per county (for use in missing site data)
@@ -441,9 +170,7 @@ for column in county_df:
 del(column,mean_value)
 
 #save df 
-county_extracted_covariates =pd.concat([world,county_df],axis=1) 
-county_extracted_covariates.rename(columns={'NAME_2':'County'}, inplace=True)
-county_extracted_covariates.to_csv('county_extracted_covariates_mean_imputation.csv',index=False)
+county_extracted_covariates =pd.concat([world,county_df],axis=1).rename(columns={'NAME_2':'County'}, inplace=True).to_csv('county_extracted_covariates_mean_imputation.csv',index=False)
 del(county_df,tiff_names,world)
 
 # =============================================================================
@@ -535,7 +262,7 @@ del(i,j,column,measure_names,variable_names)
 
 # Create a buffered polygon layer from your plot location points
 pond_data_poly = pond_data.copy()
-pond_data_poly["geometry"] = pond_data.geometry.buffer(2500) #GCN home range can be 500m away from ponds, use that as a buffer distance https://www.bto.org/our-science/projects/gbw/gardens-wildlife/garden-reptiles-amphibians/a-z-reptiles-amphibians/great-crested-newt
+pond_data_poly["geometry"] = pond_data.geometry.buffer(2500) #GCN home range can be 500m away from ponds
 
 #loop through each tiff file and extract stats
 extract_df=pd.DataFrame()
@@ -710,19 +437,6 @@ plt.show()
 del(ax,fig,base,cmap)
 
 #interactive map
-
-#last minute quick coding to reduce file size - tidy up later!
-county_data_backup=county_data
-world = gpd.read_file('./UK shapefile/UK trans.shp') 
-world.rename(columns={'NAME_2':'County'}, inplace=True)
-county_data=pd.merge(county_data,world,on='County', how='left')
-county_data=county_data[county_data['NAME_1']=='England']
-county_data = county_data.drop(['geometry_y'],axis=1)
-county_data.rename(columns={'geometry_x':'geometry'}, inplace=True)
-county_data = gpd.GeoDataFrame(county_data, crs='epsg:27700')
-#bounds=[[-38,-28],[40, 60]]
-
-
 f = folium.Map(location=[52.8225, -0.776], zoom_start=7,dragging=False)
 m = county_data.explore(
      m=f,
